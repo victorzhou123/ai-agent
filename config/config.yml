@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  read_timeout: 10000
+  read_header_timeout: 2000
+log:
+  level: "DEBUG"
+  flush_time: 5
+  run_writer:
+    file_path: "../log/run/run.log"
+    max_size: 100
+    max_age: 7
+    max_backups: 15
+    local_time: true
+    compress: false
+    std_print: true
+client:
+  llm:
+    host: "192.168.22.113"
+    port: "31434"
+    protocol: "http"
+role:
+  abstract:
+    model: "deepseek-r1:1.5b"
+    prompt: "总结用户的输入形成150字内的摘要，不要格式和标记"
+  polish:
+    model: "deepseek-r1:1.5b"
+    prompt: "将用户的输入润色，使其结构更加清晰，便于阅读"

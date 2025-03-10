@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.21'
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: ./...
+      - name: Code Test
+        run: go test -v -coverprofile=profile.cov ./...
+      - name: Build and Push Docker Images
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        run: |
+          docker version
+          echo "Logging in to Docker registry..."
+          docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+          
+          # Determine the branch name
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          
+          # Build and push images based on the branch name
+          if [ "$BRANCH_NAME" == "main" ]; then
+            docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/vicblog/ai-agent:latest
+            docker push registry.cn-hangzhou.aliyuncs.com/vicblog/ai-agent:latest
+          fi
+          

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 type AgentService interface {
@@ -88,7 +89,7 @@ func (s *agent) Abstract(input string) (string, error) {
 		return "", errors.New("response of agent not done, there may some problem")
 	}
 
-	return resp.Response, nil
+	return s.postProcess(resp.Response, s.agentCfg.Role.Polish.Model), nil
 }
 
 func (s *agent) Polish(input string) (string, error) {
@@ -110,5 +111,21 @@ func (s *agent) Polish(input string) (string, error) {
 		return "", errors.New("response of agent not done, there may some problem")
 	}
 
-	return resp.Response, nil
+	return s.postProcess(resp.Response, s.agentCfg.Role.Polish.Model), nil
+}
+
+// postProcess: post process the response of agent
+func (s *agent) postProcess(resp, model string) string {
+
+	if strings.Contains(model, "deepseek") {
+		// delete all content between double "\n\u003c/think\u003e\n"
+		respArr := strings.Split(resp, "\n\u003c/think\u003e\n\n")
+		if len(respArr) < 2 {
+			return resp
+		}
+
+		return respArr[1]
+	}
+
+	return resp
 }

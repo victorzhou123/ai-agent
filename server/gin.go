@@ -40,6 +40,11 @@ func setRouters(engine *gin.Engine, cfg *config.Config) error {
 	agentService := agent.NewAgentService(cfg.Agent)
 	handlerService := NewHandler(agentService)
 
+	// health check
+	rg.GET("/health", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{"status": "ok"})
+	})
+
 	// abstract router
 	rg.POST("/v1/abstract", handlerService.AbstractHandler())
 

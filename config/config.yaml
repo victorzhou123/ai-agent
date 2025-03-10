@@ -24,5 +24,5 @@ agent:
       model: "deepseek-r1:1.5b"
       prompt: "总结用户的输入形成150字内的摘要，不要格式和标记\n"
     polish:
-      model: "deepseek-r1:1.5b"
+      model: "deepseek-r1:14b"
       prompt: "将用户的输入润色，使其结构更加清晰，便于阅读\n"

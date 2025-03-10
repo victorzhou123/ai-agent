@@ -25,13 +25,13 @@ func (s *handlerService) AbstractHandler() gin.HandlerFunc {
 			return
 		}
 
-		resp, err := s.agent.Abstract(req.Content)
+		abs, err := s.agent.Abstract(req.Content)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("agent failed, err: %s", err)})
 			return
 		}
 
-		ctx.JSON(http.StatusOK, resp)
+		ctx.JSON(http.StatusOK, gin.H{"content": abs})
 	}
 }
 
@@ -44,12 +44,12 @@ func (s *handlerService) PolishHandler() gin.HandlerFunc {
 			return
 		}
 
-		resp, err := s.agent.Polish(req.Content)
+		polished, err := s.agent.Polish(req.Content)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("agent failed, err: %s", err)})
 			return
 		}
 
-		ctx.JSON(http.StatusOK, resp)
+		ctx.JSON(http.StatusOK, gin.H{"content": polished})
 	}
 }

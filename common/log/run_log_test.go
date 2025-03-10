@@ -39,7 +39,7 @@ func TestInfo(t *testing.T) {
 				template: "%s ate an apple",
 				args:     []any{"victor"},
 			},
-			want: "|INFO||vicBlog|test_trace_id_01|||run_log_test.go:47|victor ate an apple|\n",
+			want: "|INFO||ai-agent|test_trace_id_01|||run_log_test.go:47|victor ate an apple|\n",
 		},
 	}
 	for _, tt := range tests {

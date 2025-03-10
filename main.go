@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/victorzhou123/ai-agent/common/log"
 	"github.com/victorzhou123/ai-agent/config"
+	"github.com/victorzhou123/ai-agent/server"
 )
 
 const cfgPath = "./config.yml"
@@ -19,4 +20,7 @@ func main() {
 
 	// log init
 	log.Init(&config.GetGlobalConfig().Log, exitSig)
+
+	// web server
+	server.StartWebServer(config.GetGlobalConfig())
 }

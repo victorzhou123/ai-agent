@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/victorzhou123/ai-agent/agent"
 	"github.com/victorzhou123/ai-agent/config"
 )
 
@@ -33,9 +34,15 @@ func StartWebServer(cfg *config.Config) error {
 }
 
 func setRouters(engine *gin.Engine, cfg *config.Config) error {
-	// abstract
 
-	// polish
+	agentService := agent.NewAgentService(cfg.Agent)
+	handlerService := agent.NewHandler(agentService)
+
+	// abstract router
+	engine.POST("/v1/abstract", handlerService.AbstractHandler())
+
+	// polish router
+	engine.POST("/v1/polish", handlerService.PolishHandler())
 
 	return nil
 }

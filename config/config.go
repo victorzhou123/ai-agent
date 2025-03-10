@@ -9,41 +9,22 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 
+	"github.com/victorzhou123/ai-agent/agent"
 	"github.com/victorzhou123/ai-agent/common/log"
 )
 
 var globalCfg *Config
 
 type Config struct {
-	Server Server     `json:"server" mapstructure:"server"`
-	Log    log.Config `json:"log" mapstructure:"log"`
-	Client Client     `json:"client" mapstructure:"client"`
-	Role   Role       `json:"prompt" mapstructure:"prompt"`
+	Server Server       `json:"server" mapstructure:"server"`
+	Log    log.Config   `json:"log" mapstructure:"log"`
+	Agent  agent.Config `json:"agent" mapstructure:"agent"`
 }
 
 type Server struct {
 	Port              int `json:"port"`
 	ReadTimeout       int `json:"read_timeout"`        // unit Millisecond
 	ReadHeaderTimeout int `json:"read_header_timeout"` // unit Millisecond
-}
-
-type Client struct {
-	Ollama Ollama `json:"llm" mapstructure:"llm"`
-}
-
-type Ollama struct {
-	Host string `json:"host" mapstructure:"host"`
-	Port string `json:"port" mapstructure:"port"`
-}
-
-type Role struct {
-	Abstract Setting `json:"abstract" mapstructure:"abstract"`
-	Polish   Setting `json:"polish" mapstructure:"polish"`
-}
-
-type Setting struct {
-	Model  string `json:"model" mapstructure:"model"`
-	Prompt string `json:"prompt" mapstructure:"prompt"`
 }
 
 func GetGlobalConfig() *Config {

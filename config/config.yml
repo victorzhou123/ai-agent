@@ -13,15 +13,16 @@ log:
     local_time: true
     compress: false
     std_print: true
-client:
-  llm:
-    host: "192.168.22.113"
-    port: "31434"
-    protocol: "http"
-role:
-  abstract:
-    model: "deepseek-r1:1.5b"
-    prompt: "总结用户的输入形成150字内的摘要，不要格式和标记"
-  polish:
-    model: "deepseek-r1:1.5b"
-    prompt: "将用户的输入润色，使其结构更加清晰，便于阅读"
+agent:
+  client:
+    llm:
+      host: "192.168.22.113"
+      port: "31434"
+      protocol: "http"
+  role:
+    abstract:
+      model: "deepseek-r1:1.5b"
+      prompt: "总结用户的输入形成150字内的摘要，不要格式和标记\n"
+    polish:
+      model: "deepseek-r1:1.5b"
+      prompt: "将用户的输入润色，使其结构更加清晰，便于阅读\n"

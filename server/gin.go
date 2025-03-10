@@ -35,14 +35,16 @@ func StartWebServer(cfg *config.Config) error {
 
 func setRouters(engine *gin.Engine, cfg *config.Config) error {
 
+	rg := engine.Group(BasePath)
+
 	agentService := agent.NewAgentService(cfg.Agent)
-	handlerService := agent.NewHandler(agentService)
+	handlerService := NewHandler(agentService)
 
 	// abstract router
-	engine.POST("/v1/abstract", handlerService.AbstractHandler())
+	rg.POST("/v1/abstract", handlerService.AbstractHandler())
 
 	// polish router
-	engine.POST("/v1/polish", handlerService.PolishHandler())
+	rg.POST("/v1/polish", handlerService.PolishHandler())
 
 	return nil
 }

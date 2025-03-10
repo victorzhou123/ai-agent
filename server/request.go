@@ -1,4 +1,4 @@
-package agent
+package server
 
 type baseRequest struct {
 	Content string `json:"content"`

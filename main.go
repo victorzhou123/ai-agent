@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/victorzhou123/ai-agent/common/log"
 	"github.com/victorzhou123/ai-agent/config"
 	"github.com/victorzhou123/ai-agent/server"
 )
 
-const cfgPath = "./config.yml"
+const cfgPath = "./config/config.yaml"
 
 func main() {
 
@@ -16,7 +18,13 @@ func main() {
 	}()
 
 	// config
-	config.LoadConfig(cfgPath)
+	if err := config.LoadConfig(cfgPath); err != nil {
+		fmt.Printf("LoadConfig err: %s", err)
+		return
+	}
+
+	lg := config.GetGlobalConfig()
+	fmt.Printf("lg: %v\n", lg)
 
 	// log init
 	log.Init(&config.GetGlobalConfig().Log, exitSig)

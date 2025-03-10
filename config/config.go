@@ -22,9 +22,9 @@ type Config struct {
 }
 
 type Server struct {
-	Port              int `json:"port"`
-	ReadTimeout       int `json:"read_timeout"`        // unit Millisecond
-	ReadHeaderTimeout int `json:"read_header_timeout"` // unit Millisecond
+	Port              int `json:"port" mapstructure:"port"`
+	ReadTimeout       int `json:"read_timeout" mapstructure:"read_timeout"`               // unit Millisecond
+	ReadHeaderTimeout int `json:"read_header_timeout" mapstructure:"read_header_timeout"` // unit Millisecond
 }
 
 func GetGlobalConfig() *Config {

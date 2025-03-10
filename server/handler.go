@@ -1,26 +1,27 @@
-package agent
+package server
 
 import (
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/victorzhou123/ai-agent/agent"
 )
 
 type handlerService struct {
-	agent AgentService
+	agent agent.AgentService
 }
 
-func NewHandler(agent AgentService) handlerService {
+func NewHandler(agent agent.AgentService) handlerService {
 	return handlerService{agent: agent}
 }
 
 func (s *handlerService) AbstractHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
-		var req *AbstractRequest
-		if err := ctx.ShouldBindJSON(req); err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{"error": "request failed"})
+		var req AbstractRequest
+		if err := ctx.ShouldBindJSON(&req); err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("request failed, err: %s", err)})
 			return
 		}
 
@@ -37,9 +38,9 @@ func (s *handlerService) AbstractHandler() gin.HandlerFunc {
 func (s *handlerService) PolishHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
-		var req *PolishRequest
-		if err := ctx.ShouldBindJSON(req); err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{"error": "request failed"})
+		var req PolishRequest
+		if err := ctx.ShouldBindJSON(&req); err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("request failed, err: %s", err)})
 			return
 		}
 

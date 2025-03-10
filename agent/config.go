@@ -2,7 +2,7 @@ package agent
 
 type Config struct {
 	Client Client `json:"client" mapstructure:"client"`
-	Role   Role   `json:"prompt" mapstructure:"prompt"`
+	Role   Role   `json:"role" mapstructure:"role"`
 }
 
 type Client struct {

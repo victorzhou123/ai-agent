@@ -23,12 +23,11 @@ func main() {
 		return
 	}
 
-	lg := config.GetGlobalConfig()
-	fmt.Printf("lg: %v\n", lg)
-
 	// log init
 	log.Init(&config.GetGlobalConfig().Log, exitSig)
 
 	// web server
-	server.StartWebServer(config.GetGlobalConfig())
+	if err := server.StartWebServer(config.GetGlobalConfig()); err != nil {
+		log.Fatalf("start web server error: %s", err.Error())
+	}
 }

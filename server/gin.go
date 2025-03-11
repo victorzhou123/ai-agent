@@ -16,6 +16,7 @@ const BasePath = "/api"
 func StartWebServer(cfg *config.Config) error {
 	engine := gin.New()
 	engine.Use(gin.Recovery())
+	engine.Use(corsMiddleware())
 
 	engine.UseRawPath = true
 

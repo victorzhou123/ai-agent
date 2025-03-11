@@ -16,8 +16,8 @@ log:
 agent:
   client:
     llm:
-      host: "${LLM_HOST}"
-      port: "${LLM_PORT}"
+      host: "ollama.ollama.svc.cluster.local"
+      port: "11434"
       protocol: "http"
   role:
     abstract:

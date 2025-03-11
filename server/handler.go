@@ -31,7 +31,7 @@ func (s *handlerService) AbstractHandler() gin.HandlerFunc {
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{"content": abs})
+		ctx.JSON(http.StatusOK, newSuccessResponse("get abstract success", ContentResponse{Content: abs}))
 	}
 }
 
@@ -50,6 +50,6 @@ func (s *handlerService) PolishHandler() gin.HandlerFunc {
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{"content": polished})
+		ctx.JSON(http.StatusOK, newSuccessResponse("get polish success", ContentResponse{Content: polished}))
 	}
 }

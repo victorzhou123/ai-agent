@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/victorzhou123/ai-agent/common/log"
 	"github.com/victorzhou123/ai-agent/config"
 	"github.com/victorzhou123/ai-agent/server"
@@ -19,7 +17,6 @@ func main() {
 
 	// config
 	if err := config.LoadConfig(cfgPath); err != nil {
-		fmt.Printf("LoadConfig err: %s", err)
 		return
 	}
 

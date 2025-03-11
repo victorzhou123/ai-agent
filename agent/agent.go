@@ -75,8 +75,6 @@ func (s *agent) requestAgent(opt *reqOpt) (AgentResp, error) {
 		return AgentResp{}, fmt.Errorf("unmarshal in requestAgent failed, body is: %s", string(body))
 	}
 
-	log.Infof("response of agent is %s", agentResp.Response)
-
 	return agentResp, nil
 }
 
@@ -137,6 +135,8 @@ func (s *agent) postProcess(resp, model string) string {
 		if len(respArr) < 2 {
 			return resp
 		}
+
+		log.Infof("response of deepseek agent is %s", respArr[1])
 
 		return respArr[1]
 	}

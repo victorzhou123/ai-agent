@@ -8,6 +8,8 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/victorzhou123/ai-agent/common/log"
 )
 
 type AgentService interface {
@@ -86,6 +88,8 @@ func (s *agent) Abstract(input string) (string, error) {
 	}
 
 	if !resp.Done {
+		log.Errorf("respone of agent not done, content is %s, opt is %s", resp.Response, opt)
+
 		return "", errors.New("response of agent not done, there may some problem")
 	}
 
@@ -108,6 +112,8 @@ func (s *agent) Polish(input string) (string, error) {
 	}
 
 	if !resp.Done {
+		log.Errorf("respone of agent not done, content is %s, opt is %s", resp.Response, opt)
+
 		return "", errors.New("response of agent not done, there may some problem")
 	}
 

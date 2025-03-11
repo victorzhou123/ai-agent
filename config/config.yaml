@@ -16,8 +16,8 @@ log:
 agent:
   client:
     llm:
-      host: "192.168.22.113"
-      port: "31434"
+      host: "${LLM_HOST}"
+      port: "${LLM_PORT}"
       protocol: "http"
   role:
     abstract:

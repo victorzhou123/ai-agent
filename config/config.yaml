@@ -22,7 +22,7 @@ agent:
   role:
     abstract:
       model: "deepseek-r1:14b"
-      prompt: "总结用户的输入形成文章摘要，结果尽量精简，不要格式和标记\n"
+      prompt: "总结用户的输入形成文章摘要，输出结果应满足：1.尽量精简 2.要在三句话之内\n"
     polish:
       model: "deepseek-r1:14b"
       prompt: "将用户的输入润色，使其结构更加清晰，便于阅读\n"

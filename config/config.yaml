@@ -21,7 +21,7 @@ agent:
       protocol: "http"
   role:
     abstract:
-      model: "gemma3:12b"
+      model: "deepseek-r1:14b"
       prompt: |
         你是一个专业文章总结评分助手，请对输入进行处理，你的返回内容长度要求：
         通过实时统计(≥50字符时)自动删除非必要信息

@@ -61,6 +61,8 @@ func (s *agent) requestAgent(opt *reqOpt) (AgentResp, error) {
 		return AgentResp{}, errors.New("ReadAll failed")
 	}
 
+	log.Infof("response body is: %s", string(body))
+
 	var agentResp AgentResp
 	if err := json.Unmarshal(body, &agentResp); err != nil {
 		return AgentResp{}, fmt.Errorf("unmarshal in requestAgent failed, body is: %s", string(body))

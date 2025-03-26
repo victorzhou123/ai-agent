@@ -7,7 +7,7 @@ const (
 
 // request
 type OllamaReq struct {
-	Messages []Message `json:"message"`
+	Messages []Message `json:"messages"`
 	Model    string    `json:"model"`
 	Options  Options   `json:"options"`
 	Stream   bool      `json:"stream"`

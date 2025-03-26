@@ -35,7 +35,6 @@ agent:
 
         #### ✅摘要：
         {变量2}
-        输入:\n
     polish:
       model: "deepseek-r1:14b"
       prompt: "将用户的输入润色，使其结构更加清晰，便于阅读\n"

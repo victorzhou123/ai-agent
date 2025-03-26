@@ -45,7 +45,7 @@ func (s *agent) requestAgent(opt *reqOpt) (AgentResp, error) {
 
 	// call service
 	resp, err := http.Post(
-		fmt.Sprintf("%s://%s:%s/api/generate", opt.protocol, opt.host, opt.port),
+		fmt.Sprintf("%s://%s:%s/api/chat", opt.protocol, opt.host, opt.port),
 		"application/json",
 		bytes.NewBuffer(req))
 	if err != nil {

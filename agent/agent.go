@@ -36,18 +36,9 @@ type reqOpt struct {
 	model    string
 }
 
-type AgentResp struct {
-	Response string `json:"response"`
-	Done     bool   `json:"done"`
-}
-
 func (s *agent) requestAgent(opt *reqOpt) (AgentResp, error) {
 
-	req, err := json.Marshal(map[string]any{
-		"model":  opt.model,
-		"prompt": opt.prompt + opt.input,
-		"stream": false,
-	})
+	req, err := json.Marshal(newDefaultOllamaReq(opt.prompt, opt.input, opt.model))
 	if err != nil {
 		return AgentResp{}, fmt.Errorf("func genReq error, prompt is: %s", opt.prompt+opt.input)
 	}
@@ -94,12 +85,12 @@ func (s *agent) Abstract(input string) (string, error) {
 	}
 
 	if !resp.Done {
-		log.Errorf("respone of agent not done, content is %s, opt is %s", resp.Response, opt)
+		log.Errorf("respone of agent not done, content is %s, opt is %s", resp.Message.Content, opt)
 
 		return "", errors.New("response of agent not done, there may some problem")
 	}
 
-	return s.postProcess(resp.Response, s.agentCfg.Role.Polish.Model), nil
+	return s.postProcess(resp.Message.Content, s.agentCfg.Role.Polish.Model), nil
 }
 
 func (s *agent) Polish(input string) (string, error) {
@@ -118,12 +109,12 @@ func (s *agent) Polish(input string) (string, error) {
 	}
 
 	if !resp.Done {
-		log.Errorf("respone of agent not done, content is %s, opt is %s", resp.Response, opt)
+		log.Errorf("respone of agent not done, content is %s, opt is %s", resp.Message.Content, opt)
 
 		return "", errors.New("response of agent not done, there may some problem")
 	}
 
-	return s.postProcess(resp.Response, s.agentCfg.Role.Polish.Model), nil
+	return s.postProcess(resp.Message.Content, s.agentCfg.Role.Polish.Model), nil
 }
 
 // postProcess: post process the response of agent

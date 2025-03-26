@@ -42,7 +42,8 @@ func Test_newDefaultOllamaReq(t *testing.T) {
 					Temperature:      0.5,
 					TOPP:             1,
 				},
-				Stream: false,
+				Stream:    false,
+				KeepAlive: 0,
 			},
 		},
 	}

@@ -7,10 +7,11 @@ const (
 
 // request
 type OllamaReq struct {
-	Messages []Message `json:"messages"`
-	Model    string    `json:"model"`
-	Options  Options   `json:"options"`
-	Stream   bool      `json:"stream"`
+	Messages  []Message `json:"messages"`
+	Model     string    `json:"model"`
+	Options   Options   `json:"options"`
+	Stream    bool      `json:"stream"`
+	KeepAlive uint      `json:"keep_alive"`
 }
 
 func newDefaultOllamaReq(prompt, content, model string) OllamaReq {
@@ -28,10 +29,11 @@ func newDefaultOllamaReq(prompt, content, model string) OllamaReq {
 	options.setDefault()
 
 	return OllamaReq{
-		Messages: []Message{promptMsg, userMsg},
-		Model:    model,
-		Options:  options,
-		Stream:   false,
+		Messages:  []Message{promptMsg, userMsg},
+		Model:     model,
+		Options:   options,
+		Stream:    false,
+		KeepAlive: 0,
 	}
 }
 
